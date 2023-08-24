@@ -4,70 +4,61 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InstanceControlPanel extends JPanel {
-    public JButton addButton;
+    public JButton button;
     private JPanel instscrollPnl;
     private JScrollPane scroll;
-    public JPanel tinyPanel;
+
 
     public InstanceControlPanel() {
         initUI();
     }
 
     private void initUI() {
-        setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder());
-        setBackground(Color.WHITE);
-
         instscrollPnl = new JPanel(new GridLayout(0, 1));
-        //instscrollPnl.setAlignmentY(Component.TOP_ALIGNMENT);
+        instscrollPnl.setLayout(new BoxLayout(instscrollPnl, BoxLayout.PAGE_AXIS));
+        instscrollPnl.setBackground(Color.GREEN);
+
+        GridBagConstraints con = new GridBagConstraints();
+        con = new GridBagConstraints();
         scroll = new JScrollPane(instscrollPnl);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        //scroll.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        scroll.setPreferredSize(new Dimension(450, 180));
+        scroll.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        scroll.setPreferredSize(new Dimension(500,250));
         scroll.setBorder(BorderFactory.createEmptyBorder());
+        con.fill = GridBagConstraints.BOTH;
 
-        JPanel dummyPanel = new JPanel();
-        dummyPanel.setPreferredSize(new Dimension(440, 80));
-        dummyPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+        add(scroll);
 
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-        addButton = new JButton("Add");
-        addButton.setPreferredSize(new Dimension(80, 20));
-        addButton.setFont(new Font("Sans Serif", Font.PLAIN, 9));
-        addButton.addActionListener(e -> addNewInstance());
+        button = new JButton("Add");
+        button.setPreferredSize(new Dimension(80, 20));
+        button.setMinimumSize(new Dimension(80, 20));
+        button.setFont(new Font("Sans Serif", Font.PLAIN, 9));
+        con = new GridBagConstraints();
+        con.insets = new Insets(0,0,50,100);
+        button.addActionListener(e -> addNewInstance());
+        add(button,con);
+        btnPanel.add(button);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.LINE_START;
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.insets = new Insets(0, 5, 0, 0);
-        add(addButton, gbc);
-
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.BASELINE;
-        gbc.insets = new Insets(0, 0, 300, 0);
-        add(scroll, gbc);
-
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        gbc.weightx = 2;
-        gbc.weighty = 0;
-       // gbc.ipady =6000;
-        gbc.fill = GridBagConstraints.BASELINE_LEADING;
-        gbc.insets = new Insets(0, 0, 0, 0);
-        //add(dummyPanel, gbc);
+        btnPanel.setPreferredSize(new Dimension(450,30));
+        btnPanel.setMinimumSize(new Dimension(450,30));
+        btnPanel.setMaximumSize(new Dimension(450,30));
+        btnPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+        con = new GridBagConstraints();
+        con.gridx = 1;
+        con.anchor = GridBagConstraints.FIRST_LINE_START;
+        con.weightx = 0;
+        con.fill = GridBagConstraints.HORIZONTAL;
+       instscrollPnl.add(btnPanel, con);
 
         addNewInstance();
     }
-
     private void addNewInstance() {
-        //instscrollPnl.remove(tinyPanel);
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         InstancePanel newInstance = new InstancePanel(instscrollPnl);
-
 
         revalidate();
         repaint();

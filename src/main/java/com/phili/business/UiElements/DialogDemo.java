@@ -22,8 +22,8 @@ public class DialogDemo extends JDialog {
 
     private void initUI() {
         setTitle("Title");
-        setPreferredSize(new Dimension(565,180));
-        setResizable(true);
+        setPreferredSize(new Dimension(516,509));
+        setResizable(false);
         setLayout(new BorderLayout());
 
         add(pnlContent, BorderLayout.PAGE_START);
@@ -77,7 +77,7 @@ public class DialogDemo extends JDialog {
         con = new GridBagConstraints();
         con.gridx = 0;
         con.gridy = 6;
-        con.anchor = GridBagConstraints.CENTER;
+        con.anchor = GridBagConstraints.LAST_LINE_END;
         con.weightx = 1;
         pnlContent.add(pnlButtons, con);
 

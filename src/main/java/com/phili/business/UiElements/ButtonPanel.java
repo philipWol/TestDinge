@@ -16,8 +16,8 @@ public class ButtonPanel extends JPanel {
     }
 
     private void initUI() {
+        setLayout(new BorderLayout());
         setLayout(new GridBagLayout());
-
         GridBagConstraints con = new GridBagConstraints();
         con = new GridBagConstraints();
         con.gridx = 0;
