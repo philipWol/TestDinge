@@ -1,6 +1,8 @@
 package com.phili.business.UiElements;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class DialogDemo extends JDialog {
@@ -8,7 +10,7 @@ public class DialogDemo extends JDialog {
     private BeschreibungPanel pnlDescription = new BeschreibungPanel();
     private ProjecktPanel pnlProject = new ProjecktPanel();
     private InstanceControlPanel pnlInstanzen = new InstanceControlPanel();
-    private ButtonPanel pnlButtons = new ButtonPanel();
+    private ButtonPanel pnlButtons = new ButtonPanel(this);
     private JPanel pnlContent = new JPanel(new GridBagLayout());
 
     public DialogDemo() {
@@ -81,9 +83,44 @@ public class DialogDemo extends JDialog {
         con.weightx = 1;
         pnlContent.add(pnlButtons, con);
 
+        DocumentListener documentListener = new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                validateFields();
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                validateFields();
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                validateFields();
+            }
+
+
+            private void validateFields() {
+                boolean isFieldsFilled = !pnlProject.getTfProjektbezeichnung().getText().isEmpty() &&
+                        !pnlProject.getTfLocation().getText().isEmpty() &&
+                        pnlInstanzen.areAllInstanceFieldsFilled();
+
+                pnlButtons.getSaveButton().setEnabled(isFieldsFilled);
+            }
+        };
+        pnlProject.getTfProjektbezeichnung().getDocument().addDocumentListener(documentListener);
+        pnlProject.getTfLocation().getDocument().addDocumentListener(documentListener);
+        pnlProject.getTfLocation().getDocument().addDocumentListener(documentListener);
+
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public ProjecktPanel getPnlProject() {
+        return pnlProject;
+    }
+
+    public InstanceControlPanel getPnlInstanzen() {
+        return pnlInstanzen;
     }
 
     private void initListeners() {

@@ -4,14 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InstancePanel extends JPanel {
+    private JTextField instanceTextField;
 
 
 public InstancePanel(JPanel parentPanel) {
 
-
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setBorder(BorderFactory.createEmptyBorder());
-        setBorder(BorderFactory.createLineBorder(Color.RED));
+       // setBorder(BorderFactory.createLineBorder(Color.RED));
         Dimension dim = new Dimension(400,30);
         setMaximumSize(dim);
         setPreferredSize(dim);
@@ -45,10 +45,10 @@ public InstancePanel(JPanel parentPanel) {
         con.weightx = 0;
         con.anchor = GridBagConstraints.CENTER;
 
-        JTextField instanceTextField = new JTextField(); // Specify columns
-        instanceTextField.setMinimumSize(new Dimension(200,20)); // Set minimum size
-        instanceTextField.setMaximumSize(new Dimension(200,20)); // Set maximum size
-        instanceTextField.setPreferredSize(new Dimension(200,20)); // Set preferred size
+        instanceTextField = new JTextField(); // Specify columns
+        instanceTextField.setMinimumSize(new Dimension(200,20));
+        instanceTextField.setMaximumSize(new Dimension(200,20));
+        instanceTextField.setPreferredSize(new Dimension(200,20));
         instanceTextField.setAlignmentY(Component.TOP_ALIGNMENT);
         Dimension txtField = new Dimension(50,20);
         instanceTextField.add(Box.createRigidArea(txtField));
@@ -62,7 +62,7 @@ public InstancePanel(JPanel parentPanel) {
         con.insets = new Insets(10,0,20,0);
 
         deleteButton.setPreferredSize(new Dimension(50, 20));
-        deleteButton.setMinimumSize(new Dimension(50,20)); // Set minimum size
+        deleteButton.setMinimumSize(new Dimension(50,20));
         deleteButton.setMaximumSize(new Dimension(50,20));
         deleteButton.setAlignmentY(Component.TOP_ALIGNMENT);
         add(deleteButton,con);
@@ -71,9 +71,13 @@ public InstancePanel(JPanel parentPanel) {
 
         parentPanel.add(this);
         }
+    public JTextField getInstanceTextField() {
+        return instanceTextField;
+    }
 
     private void reduceInstance(JPanel parentPanel) {
         parentPanel.remove(this);
+
 
         parentPanel.revalidate();
         parentPanel.repaint();
