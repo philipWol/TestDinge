@@ -2,11 +2,13 @@ package com.phili.business.UiElements;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class InstanceControlPanel extends JPanel {
     public JButton button;
     private JPanel instscrollPnl;
     private JScrollPane scroll;
+    private ArrayList<InstancePanel> instances = new ArrayList<InstancePanel>();
 
 
     public InstanceControlPanel() {
@@ -17,7 +19,7 @@ public class InstanceControlPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder());
         instscrollPnl = new JPanel(new GridLayout(0, 1));
         instscrollPnl.setLayout(new BoxLayout(instscrollPnl, BoxLayout.PAGE_AXIS));
-        instscrollPnl.setBackground(Color.GREEN);
+       // instscrollPnl.setBackground(Color.WHITE);
 
         GridBagConstraints con = new GridBagConstraints();
         con = new GridBagConstraints();
@@ -52,16 +54,30 @@ public class InstanceControlPanel extends JPanel {
         con.anchor = GridBagConstraints.FIRST_LINE_START;
         con.weightx = 0;
         con.fill = GridBagConstraints.HORIZONTAL;
-       instscrollPnl.add(btnPanel, con);
+        instscrollPnl.add(btnPanel, con);
 
         addNewInstance();
     }
+    public boolean areAllInstanceFieldsFilled() {
+        for (InstancePanel instancePanel : instances) {
+            JTextField instanceTextField = instancePanel.getInstanceTextField();
+            if (instanceTextField.getText().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void addNewInstance() {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         InstancePanel newInstance = new InstancePanel(instscrollPnl);
+        instances.add(newInstance);
 
         revalidate();
         repaint();
     }
 
+    public ArrayList<InstancePanel> getInstances() {
+        return instances;
+    }
 }

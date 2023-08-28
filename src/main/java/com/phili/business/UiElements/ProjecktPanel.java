@@ -1,5 +1,7 @@
 package com.phili.business.UiElements;
 
+import com.phili.business.buttonListener.ClickActions;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -60,8 +62,17 @@ public class ProjecktPanel extends JPanel {
         con.insets = new Insets(5,5,0,15);
         btnFileChooser.setPreferredSize(new Dimension(80,20));
         btnFileChooser.setFont(new Font(" San Serif", Font.PLAIN,9));
+        btnFileChooser.addActionListener(ClickActions.createFileChooserAction(tfLocation));
+
         add(btnFileChooser, con);
 
     }
 
+    public JTextField getTfProjektbezeichnung() {
+        return tfProjektbezeichnung;
+    }
+
+    public JTextField getTfLocation() {
+        return tfLocation;
+    }
 }

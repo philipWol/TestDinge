@@ -7,7 +7,7 @@ public class BeschreibungPanel extends JPanel {
     private ImageIcon Icon = new ImageIcon("src/main/resources/info-5-32.png");
     private JPanel IconPanel;
     private JLabel lblIconPanel;
-    private JLabel lblTxtInfo = new JLabel(" Wählen Sie eine Datei zum Vergleichen aus");
+    private JLabel lblTxtInfo = new JLabel(" Füllen Sie bitte alle Pflichtfelder aus.");
 
     public BeschreibungPanel() {
         setLayout(new BorderLayout());
