@@ -67,6 +67,15 @@ public class ProjecktPanel extends JPanel {
         add(btnFileChooser, con);
 
     }
+    public void highlightEmptyFields(boolean highlight) {
+        if (highlight) {
+            tfProjektbezeichnung.setBackground(Color.PINK);
+            tfLocation.setBackground(Color.PINK);
+        } else {
+            tfProjektbezeichnung.setBackground(Color.WHITE);
+            tfLocation.setBackground(Color.WHITE);
+        }
+    }
 
     public JTextField getTfProjektbezeichnung() {
         return tfProjektbezeichnung;

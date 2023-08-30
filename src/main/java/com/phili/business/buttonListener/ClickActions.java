@@ -1,6 +1,5 @@
 package com.phili.business.buttonListener;
 
-
 import com.phili.business.UiElements.DialogDemo;
 import com.phili.business.UiElements.InstanceControlPanel;
 import com.phili.business.UiElements.InstancePanel;
@@ -14,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.phili.business.service.XmlStore.appendDataToXML;
 
 public class ClickActions {
     public static ActionListener createFileChooserAction(JTextField tfLocation) {
@@ -29,6 +30,7 @@ public class ClickActions {
                     tfLocation.setText(selectedFolder.getAbsolutePath());
                 }
             }
+
         };
     }
     public static ActionListener saveAction(DialogDemo dialogDemo){
@@ -43,10 +45,11 @@ public class ClickActions {
                 List<String> instancesTxtValues = new ArrayList<>();
 
                 for (InstancePanel instancePanel : instances) {
-                    String instanceTextValue = instancePanel.getInstanceTextField().getText();
+                   String instanceTextValue = instancePanel.getInstanceTextField().getText();
                     instancesTxtValues.add(instanceTextValue);
                 }
                 XmlStore.storeDataInXMLFormat(tfProjektbezeichnungTextValue, tfLocationTxtValue, instancesTxtValues.toString());
+                appendDataToXML(dialogDemo);
             }
         };
     }
@@ -57,10 +60,8 @@ public class ClickActions {
             public void actionPerformed(ActionEvent e) {
                 projecktPanel.getTfProjektbezeichnung().setText("");
                 projecktPanel.getTfLocation().setText("");
-
-                // Clear instance text fields
                 for (InstancePanel instancePanel : instanceControlPanel.getInstances()) {
-                    instancePanel.getInstanceTextField().setText("");
+                   instancePanel.getInstanceTextField().setText("");
                 }
             }
         };

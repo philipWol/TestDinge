@@ -7,7 +7,7 @@ public class BeschreibungPanel extends JPanel {
     private ImageIcon Icon = new ImageIcon("src/main/resources/info-5-32.png");
     private JPanel IconPanel;
     private JLabel lblIconPanel;
-    private JLabel lblTxtInfo = new JLabel(" Füllen Sie bitte alle Pflichtfelder aus.");
+    private JLabel lblTxtInfo = new JLabel("Füllen Sie bitte alle Pflichtfelder aus.");
 
     public BeschreibungPanel() {
         setLayout(new BorderLayout());
@@ -20,8 +20,8 @@ public class BeschreibungPanel extends JPanel {
         lblIconPanel = new JLabel("Der Konfigurationsassistent", Icon, JLabel.LEFT);
 
         lblIconPanel.setIconTextGap(10);
-        lblIconPanel.setFont(new Font("Sans-Serif", Font.BOLD,16));
-        lblIconPanel.setBackground(Color.WHITE);
+        lblIconPanel.setFont(new Font("Sans-Serif", Font.BOLD, 16));
+        //lblIconPanel.setBackground(Color.WHITE);
         IconPanel.add(lblIconPanel, con);
 
         con = new GridBagConstraints();
@@ -29,7 +29,7 @@ public class BeschreibungPanel extends JPanel {
         con.gridy = 1;
         con.anchor = GridBagConstraints.NORTHWEST;
         con = new GridBagConstraints();
-        lblTxtInfo.setFont(new Font("Sans-Serif", Font.PLAIN,12));
+        lblTxtInfo.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
 
         con.gridx = 0;
         con.gridy = 2;
@@ -41,5 +41,25 @@ public class BeschreibungPanel extends JPanel {
         add(IconPanel, BorderLayout.WEST);
 
     }
-}
+
+    public void setValidationMessage(String message) {
+        lblTxtInfo.setText(message);
+        if (message != null) {
+            lblTxtInfo.setForeground(Color.RED);
+        } else {
+            lblTxtInfo.setForeground(Color.BLACK);
+        }
+    }
+//    public void highlightValidationState(boolean highlight) {
+//        if (highlight) {
+//            setBackground(Color.PINK);
+//            lblIconPanel.setForeground(Color.RED);
+//        } else {
+//            setBackground(Color.WHITE);
+//            lblIconPanel.setForeground(Color.BLACK);
+
+        }
+
+
+
 

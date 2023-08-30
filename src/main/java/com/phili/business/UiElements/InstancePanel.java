@@ -5,9 +5,10 @@ import java.awt.*;
 
 public class InstancePanel extends JPanel {
     private JTextField instanceTextField;
+    private boolean highlight;
 
 
-public InstancePanel(JPanel parentPanel) {
+    public InstancePanel(JPanel parentPanel) {
 
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setBorder(BorderFactory.createEmptyBorder());
@@ -45,7 +46,7 @@ public InstancePanel(JPanel parentPanel) {
         con.weightx = 0;
         con.anchor = GridBagConstraints.CENTER;
 
-        instanceTextField = new JTextField(); // Specify columns
+        instanceTextField = new JTextField();
         instanceTextField.setMinimumSize(new Dimension(200,20));
         instanceTextField.setMaximumSize(new Dimension(200,20));
         instanceTextField.setPreferredSize(new Dimension(200,20));
@@ -71,7 +72,16 @@ public InstancePanel(JPanel parentPanel) {
 
         parentPanel.add(this);
         }
-    public JTextField getInstanceTextField() {
+    public void highlightEmptyFields(boolean highlight) {
+
+        if (highlight) {
+            instanceTextField.setBackground(Color.PINK);
+        } else {
+            instanceTextField.setBackground(Color.WHITE);
+        }
+    }
+    public  JTextField getInstanceTextField() {
+       // this.getInstanceTextField();
         return instanceTextField;
     }
 
@@ -82,4 +92,6 @@ public InstancePanel(JPanel parentPanel) {
         parentPanel.revalidate();
         parentPanel.repaint();
     }
+
+
 }

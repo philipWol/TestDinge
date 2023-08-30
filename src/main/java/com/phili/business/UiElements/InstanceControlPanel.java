@@ -9,8 +9,6 @@ public class InstanceControlPanel extends JPanel {
     private JPanel instscrollPnl;
     private JScrollPane scroll;
     private ArrayList<InstancePanel> instances = new ArrayList<InstancePanel>();
-
-
     public InstanceControlPanel() {
         initUI();
     }
@@ -19,7 +17,6 @@ public class InstanceControlPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder());
         instscrollPnl = new JPanel(new GridLayout(0, 1));
         instscrollPnl.setLayout(new BoxLayout(instscrollPnl, BoxLayout.PAGE_AXIS));
-       // instscrollPnl.setBackground(Color.WHITE);
 
         GridBagConstraints con = new GridBagConstraints();
         con = new GridBagConstraints();
@@ -80,4 +77,11 @@ public class InstanceControlPanel extends JPanel {
     public ArrayList<InstancePanel> getInstances() {
         return instances;
     }
+    public void highlightEmptyInstanceFields(boolean highlight) {
+        for (InstancePanel instance : instances) {
+            instance.highlightEmptyFields(highlight);
+
+        }
+    }
+
 }

@@ -13,9 +13,13 @@ public class ButtonPanel extends JPanel {
         initUI(dialogDemo);
     }
 
-//    private void init() {
-//        initUI();
-//    }
+   private void init() {
+      // initUI();
+       initListeners();
+    }
+    private void initListeners() {
+
+    }
 
     private void initUI(DialogDemo dialogDemo) {
         setLayout(new BorderLayout());

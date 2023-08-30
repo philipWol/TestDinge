@@ -11,7 +11,9 @@ public class DialogDemo extends JDialog {
     private ProjecktPanel pnlProject = new ProjecktPanel();
     private InstanceControlPanel pnlInstanzen = new InstanceControlPanel();
     private ButtonPanel pnlButtons = new ButtonPanel(this);
+    private InstancePanel pnlInstance = new InstancePanel(pnlInstanzen);
     private JPanel pnlContent = new JPanel(new GridBagLayout());
+    private boolean isFieldsValid = false;
 
     public DialogDemo() {
         init();
@@ -24,7 +26,7 @@ public class DialogDemo extends JDialog {
 
     private void initUI() {
         setTitle("Title");
-        setPreferredSize(new Dimension(516,509));
+        setPreferredSize(new Dimension(516, 498));
         setResizable(false);
         setLayout(new BorderLayout());
 
@@ -44,7 +46,7 @@ public class DialogDemo extends JDialog {
         con.fill = GridBagConstraints.HORIZONTAL;
         con.gridwidth = 3;
         con.weightx = 1;
-        con.insets = new Insets(0,0,0,0);
+        con.insets = new Insets(0, 0, 0, 0);
         pnlContent.add(new JSeparator(), con);
 
         con = new GridBagConstraints();
@@ -83,49 +85,80 @@ public class DialogDemo extends JDialog {
         con.weightx = 1;
         pnlContent.add(pnlButtons, con);
 
-        DocumentListener documentListener = new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) {
-                validateFields();
-            }
-
-            public void removeUpdate(DocumentEvent e) {
-                validateFields();
-            }
-
-            public void insertUpdate(DocumentEvent e) {
-                validateFields();
-            }
-
-
-            private void validateFields() {
-                boolean isFieldsFilled = !pnlProject.getTfProjektbezeichnung().getText().isEmpty() &&
-                        !pnlProject.getTfLocation().getText().isEmpty() &&
-                        pnlInstanzen.areAllInstanceFieldsFilled();
-
-                pnlButtons.getSaveButton().setEnabled(isFieldsFilled);
-            }
-        };
-        pnlProject.getTfProjektbezeichnung().getDocument().addDocumentListener(documentListener);
-        pnlProject.getTfLocation().getDocument().addDocumentListener(documentListener);
-        pnlProject.getTfLocation().getDocument().addDocumentListener(documentListener);
-
 
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+
     }
 
-    public ProjecktPanel getPnlProject() {
-        return pnlProject;
-    }
+    DocumentListener documentListener = new DocumentListener() {
+        public void changedUpdate(DocumentEvent e) {
+            validateFields();
+        }
 
-    public InstanceControlPanel getPnlInstanzen() {
-        return pnlInstanzen;
-    }
+        public void removeUpdate(DocumentEvent e) {
+            validateFields();
+        }
 
+        public void insertUpdate(DocumentEvent e) {
+            validateFields();
+        }
+
+        private void validateFields() {
+            boolean isFieldsFilled = !pnlProject.getTfProjektbezeichnung().getText().isEmpty() &&
+                    !pnlProject.getTfLocation().getText().isEmpty() &&
+                    pnlInstanzen.areAllInstanceFieldsFilled();
+
+            if (isFieldsFilled) {
+                pnlDescription.setValidationMessage(null);
+                highlightEmptyFields(false);
+            } else {
+                pnlDescription.setValidationMessage("Bitte füllen Sie alle Pflichtfelder aus.");
+                highlightEmptyFields(true);
+            }
+
+            pnlButtons.getSaveButton().setEnabled(isFieldsFilled);
+            isFieldsValid = isFieldsFilled;
+
+        }
+
+    };
     private void initListeners() {
+        pnlProject.getTfProjektbezeichnung().getDocument().addDocumentListener(documentListener);
+        pnlInstance.getInstanceTextField().getDocument().addDocumentListener(documentListener);
+        pnlProject.getTfLocation().getDocument().addDocumentListener(documentListener);
+    }
+
+    private void highlightEmptyFields(boolean highlight) {
+        Color highlightColor = new Color(255, 200, 200);
+
+        if (highlight) {
+            pnlProject.getTfProjektbezeichnung().setBackground(highlightColor);
+            pnlProject.getTfLocation().setBackground(highlightColor);
+            pnlInstanzen.highlightEmptyInstanceFields(true);
+            pnlInstance.getInstanceTextField().setBackground(highlightColor);
+            pnlDescription.setValidationMessage("Bitte füllen Sie alle Pflichtfelder aus.");
+        } else {
+            pnlProject.getTfProjektbezeichnung().setBackground(Color.WHITE);
+            pnlProject.getTfLocation().setBackground(Color.WHITE);
+            pnlInstanzen.highlightEmptyInstanceFields(false);
+            pnlInstance.getInstanceTextField().setBackground(Color.WHITE);
+            pnlDescription.setValidationMessage(null);
+        }
+    }
+
+        public ProjecktPanel getPnlProject () {
+            return pnlProject;
+        }
+
+        public InstanceControlPanel getPnlInstanzen () {
+            return pnlInstanzen;
+
+
+        }
 
     }
 
-}
+
 
